@@ -1,16 +1,19 @@
 return {
   { -- Autoformat
     'stevearc/conform.nvim',
+    cond = function()
+      return require('custom.utils').is_neovim()
+    end,
     event = { 'BufWritePre' },
     cmd = { 'ConformInfo' },
     keys = {
       {
-        '<leader>f',
+        '<leader>=',
         function()
           require('conform').format { async = true, lsp_format = 'fallback' }
         end,
         mode = '',
-        desc = '[F]ormat buffer',
+        desc = 'Format buffer',
       },
     },
     opts = {

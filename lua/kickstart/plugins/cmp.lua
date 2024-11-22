@@ -29,17 +29,23 @@ return {
       },
       'saadparwaiz1/cmp_luasnip',
 
+      'onsails/lspkind.nvim',
+
       -- Adds other completion capabilities.
       --  nvim-cmp does not ship with all sources by default. They are split
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-cmdline',
     },
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+
+      local lspkind = require 'lspkind'
 
       cmp.setup {
         snippet = {
@@ -48,6 +54,10 @@ return {
           end,
         },
         completion = { completeopt = 'menu,menuone,noinsert' },
+
+        formatting = {
+          format = lspkind.cmp_format(),
+        },
 
         -- For an understanding of why these mappings were
         -- chosen, you will need to read `:help ins-completion`
@@ -107,11 +117,44 @@ return {
             -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
             group_index = 0,
           },
-          { name = 'nvim_lsp' },
+          { name = 'nvim_lsp', keyword_length = 2 },
           { name = 'luasnip' },
           { name = 'path' },
+          {
+            name = 'buffer',
+            keyword_length = 2,
+            option = {
+              get_bufnrs = function()
+                return vim.api.nvim_list_bufs()
+              end,
+            },
+          },
         },
       }
+
+      -- `/` cmdline setup.
+      cmp.setup.cmdline('/', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = {
+          { name = 'buffer', keyword_length = 3 },
+        },
+      })
+
+      -- `:` cmdline setup.
+      cmp.setup.cmdline(':', {
+        mapping = cmp.mapping.preset.cmdline(),
+        sources = cmp.config.sources({
+          { name = 'path' },
+        }, {
+          {
+            name = 'cmdline',
+            keyword_length = 2,
+            option = {
+              ignore_cmds = { 'Man', '!' },
+            },
+          },
+        }),
+      })
     end,
   },
 }
