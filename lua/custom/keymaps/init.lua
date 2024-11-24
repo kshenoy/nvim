@@ -24,6 +24,7 @@ map('n', 'cW', 'dWi')
 -- BUFFERS -------------------------------------------------------------------------------------------------------------
 -- Switching buffers is something I do often, so make that as fast as possible
 map('n', '<Leader><Leader>', '<Plug>(leader-buffer-map)b', { remap = true, silent = true })
+map('n', '<Leader>,', '<cmd>b#<CR>', { silent = true })
 
 -- INDENTATION AND STYLING ---------------------------------------------------------------------------------------------
 -- Preserve visual block after indenting, increment/decrement

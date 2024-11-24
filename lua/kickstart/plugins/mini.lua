@@ -38,6 +38,10 @@ return {
       --  Check out: https://github.com/echasnovski/mini.nvim
       require('mini.align').setup()
       require('mini.bracketed').setup()
+
+      require('mini.bufremove').setup()
+      vim.keymap.set('n', '<Plug>(leader-buffer-map)d', require('mini.bufremove').delete, { desc = "Delete Buffer" })
+
       require('mini.operators').setup()
       require('mini.pairs').setup()
     end,
