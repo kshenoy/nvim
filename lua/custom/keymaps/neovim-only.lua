@@ -53,6 +53,13 @@ map('n', '<leader>kq', function()
   vim.cmd 'copen'
 end, { desc = 'Toggle QuickFix' })
 
-map('n', '<leader>tw', function()
-  require('custom.utils').toggle_opt 'wrap'
-end, { desc = 'Toggle Wrap' })
+
+-- Window resize (respecting `v:count`)
+map('n', '<C-S-Left>',  '"<Cmd>vertical resize -" . v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Decrease window width' })
+map('n', '<C-S-Down>',  '"<Cmd>resize -"          . v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Decrease window height' })
+map('n', '<C-S-Up>',    '"<Cmd>resize +"          . v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Increase window height' })
+map('n', '<C-S-Right>', '"<Cmd>vertical resize +" . v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Increase window width' })

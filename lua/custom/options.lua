@@ -12,16 +12,15 @@ if require('custom.utils').is_neovim() then
   vim.o.scrolloff = 6 -- no. of lines to show around the cursor for context
   vim.o.showbreak = '↪' -- string to put at the start of wrapped lines
   vim.o.sidescroll = 3 -- minimal number of columns to scroll horizontally
-  vim.o.sidescrolloff = 10 -- no. of columns to show around the cursor for context
+  vim.o.sidescrolloff = 12 -- no. of columns to show around the cursor for context
   vim.o.cmdheight = 2 -- number of screen lines to use for the command-line. Helps avoiding 'hit-enter' prompts
-  vim.opt.listchars:append { extends = '›', precedes = '‹' } -- list of strings used for list mode
+  vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣', extends = '›', precedes = '‹' }
   vim.o.number = false -- don't show line numbers
   vim.o.conceallevel = 2 -- concealed text is completely hidden
   vim.o.concealcursor = 'nc' -- conceal text in the cursor line in normal and command-line modes
 
   -- [[ Syntax, highlighting and spelling ]] ---------------------------------------------------------------------------
   vim.o.hlsearch = true -- highlight all matches for the last used search pattern
-  vim.o.termguicolors = true -- enable 24-bit RGB color in the TUI
   vim.o.colorcolumn = '+1' -- highlight Column 121 (textwidth+1)
 
   -- [[ Multiple windows, tab pages ]] ---------------------------------------------------------------------------------
@@ -29,9 +28,6 @@ if require('custom.utils').is_neovim() then
 
   -- [[ Editing text ]] ------------------------------------------------------------------------------------------------
   vim.o.textwidth = 120 -- line length above which to break a line
-  vim.opt.completeopt:append 'menuone' -- use the popup menu also when there is only one match
-  vim.opt.completeopt:append 'noinsert' -- do not insert any text for a match until I select it
-  vim.opt.completeopt:append 'noselect' -- do not select a match in the menu automatically
   vim.o.showmatch = true -- show matching brackets
 
   -- [[ Tabs and indenting ]] ------------------------------------------------------------------------------------------
@@ -42,6 +38,7 @@ if require('custom.utils').is_neovim() then
 
   -- [[ Reading and writing files, swap file ]] ------------------------------------------------------------------------
   vim.o.backup = true -- keep a backup after overwriting a file
+  vim.o.writebackup = true -- keep a backup after overwriting a file
   vim.opt.backupdir:remove '.' -- list of directories to put backup files in
   vim.o.swapfile = false -- don't create swap files
 
