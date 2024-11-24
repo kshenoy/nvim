@@ -93,17 +93,19 @@ vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 require 'options'
-require 'custom.options' -- Expand/override kickstart's default
 
 -- [[ Basic Keymaps ]]
 require 'keymaps'
-require 'custom.keymaps'
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+
+-- [[ Custom overrides ]]
+require 'custom.options' -- Expand/override kickstart's default
+require 'custom.keymaps'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

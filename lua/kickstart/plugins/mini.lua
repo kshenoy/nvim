@@ -36,6 +36,21 @@ return {
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+      require('mini.basics').setup({
+        options = {
+          -- Extra UI features ('winblend', 'cmdheight=0', ...)
+          extra_ui = true,
+
+          -- Presets for window borders ('single', 'double', ...)
+          win_borders = 'default',
+        },
+        mappings = {
+          -- Prefix for mappings that toggle common options ('wrap', 'spell', ...).
+          -- Supply empty string to not create these mappings.
+          option_toggle_prefix = '<leader>t',
+
+        },
+      })
       require('mini.align').setup()
       require('mini.bracketed').setup()
 
