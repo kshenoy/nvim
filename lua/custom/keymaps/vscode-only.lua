@@ -44,10 +44,9 @@ end
 -- mapb('a', 'workbench.action.showAllEditorsByMostRecentlyUsed')
 mapb('b', 'workbench.action.showEditorsInActiveGroup')
 mapb('B', 'workbench.action.showAllEditors')
-mapb('d', 'workbench.action.closeActiveEditor') -- similar to vim's buf(d)elete
-mapb('D', 'workbench.action.closeEditorInAllGroups')
-mapb('c', 'workbench.action.closeUnmodifiedEditors')
-mapb('C', 'workbench.action.closeEditorsInGroup') --  (except pinned)
+mapb('c', 'workbench.action.closeActiveEditor')
+mapb('C', 'workbench.action.closeUnmodifiedEditors')
+mapb('d', 'workbench.action.closeEditorInAllGroups') -- similar to vim's buf(d)elete
 mapb('H', 'workbench.action.moveEditorLeftInGroup')
 mapb('J', 'workbench.action.moveEditorToFirstGroup')
 mapb('K', 'workbench.action.moveEditorToLastGroup')
