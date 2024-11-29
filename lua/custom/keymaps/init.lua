@@ -33,11 +33,11 @@ map('v', '<', '<gv')
 
 -- SEARCH AND REPLACE --------------------------------------------------------------------------------------------------
 -- Use very-magic (PCRE-ish) while searching
-map('n', '/', '/\\v')
-map('n', '?', '?\\v')
-map('c', '%s/', '%s/\\v')
-map('c', '.s/', '.s/\\v')
-map('x', ':s/', ':s/\\%V\\v')
+-- map('n', '/', '/\\v')
+-- map('n', '?', '?\\v')
+-- map('c', '%s/', '%s/\\v')
+-- map('c', '.s/', '.s/\\v')
+-- map('x', ':s/', ':s/\\%V\\v')
 
 -- Replace word under the cursor. Type replacement, press `<ESC>`. Use `.` to jump to next occurence and repeat
 map('n', 'c*', '*<C-O>cgn')
