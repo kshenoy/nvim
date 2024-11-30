@@ -1,5 +1,5 @@
--- TODO: Change leader from 'Space' to 'Ctrl+Space' to allow using it in Insert mode
--- TODO: Change localleader from '\' to 'Ctrl+\' to allow using it in Insert mode
+-- TODO: Change Leader from 'Space' to 'Ctrl+Space' to allow using it in Insert mode
+-- TODO: Change LocalLeader from '\' to 'Ctrl+\' to allow using it in Insert mode
 -- TODO: Use settings.cycler to replace multiple commands with a single toggle eg. pin/unpin etc.
 
 local map = vim.keymap
@@ -13,7 +13,7 @@ map.set({ 'n', 'o', 'x' }, 'gc', '<Plug>VSCodeCommentary', { remap = true })
 map.set('n', 'gcc', '<Plug>VSCodeCommentaryLine', { remap = true })
 
 -- [[ LEADER ]] --------------------------------------------------------------------------------------------------------
--- The leader is used for global maps.
+-- The Leader is used for global maps.
 -- It needs to be defined before the first map is called so it's defined in init.lua
 
 local mapL = function(key, cmd)
@@ -27,7 +27,7 @@ mapL(':', 'workbench.action.showCommands') -- Ctrl+Shift+P
 mapL('<Tab>', 'workbench.action.showAllEditors')
 
 -- [[ LOCAL-LEADER ]]---------------------------------------------------------------------------------------------------
--- The localleader is used for mode/filetype specific maps
+-- The LocalLeader is used for mode/filetype specific maps
 -- It needs to be defined before the first map is called so it's defined in init.lua
 
 local mapLL = function(key, cmd)
