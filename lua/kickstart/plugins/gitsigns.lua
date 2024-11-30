@@ -56,13 +56,16 @@ return {
         map('n', '<leader>vhr', gitsigns.reset_hunk, { desc = 'Reset hunk' })
         map('n', '<leader>vhS', gitsigns.stage_buffer, { desc = 'Stage buffer' })
         map('n', '<leader>vhu', gitsigns.undo_stage_hunk, { desc = 'Undo stage hunk' })
-        map('n', '<leader>vr',  gitsigns.reset_buffer, { desc = 'Reset buffer' })
+        map('n', '<leader>vr', gitsigns.reset_buffer, { desc = 'Reset buffer' })
         map('n', '<leader>vhh', gitsigns.preview_hunk, { desc = 'Preview hunk' })
-        map('n', '<leader>vb',  gitsigns.blame_line, { desc = 'Blame line' })
+        map('n', '<leader>vb', function()
+          gitsigns.blame_line { full = true }
+        end, { desc = 'Blame line' })
         map('n', '<leader>vd',  gitsigns.diffthis, { desc = 'Diff against index' })
         map('n', '<leader>vD', function()
           gitsigns.diffthis '@'
         end, { desc = 'Diff against last commit' })
+
         -- Toggles
         map('n', '<leader>vtb', gitsigns.toggle_current_line_blame, { desc = 'Toggle show blame line' })
         map('n', '<leader>vtd', gitsigns.toggle_deleted, { desc = 'Toggle show deleted' })
