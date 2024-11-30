@@ -6,23 +6,14 @@ return {
         local util = require 'lazy.core.util'
         local opt = 'mini' .. cmd .. '_disable'
 
-        vim.keymap.set('n', '<Leader>t' .. string.lower(key), function()
-          vim.b[opt] = not vim.b[opt]
-          if vim.b[opt] then
-            util.warn('Disabled ' .. cmd .. ' in current buffer', { title = 'Option' })
-          else
-            util.info('Enabled ' .. cmd .. ' in current buffer', { title = 'Option' })
-          end
-        end, { desc = 'Toggle mini-' .. cmd })
-
-        vim.keymap.set('n', '<Leader>t' .. string.upper(key), function()
+        vim.keymap.set('n', '<Leader>t' .. key, function()
           vim.g[opt] = not vim.g[opt]
           if vim.g[opt] then
-            util.warn('Disabled ' .. cmd, { title = 'Option' })
-          else
             util.info('Enabled ' .. cmd, { title = 'Option' })
+          else
+            util.warn('Disabled ' .. cmd, { title = 'Option' })
           end
-        end, { desc = 'Toggle mini-' .. cmd .. ' (globally)' })
+        end, { desc = 'Toggle mini-' .. cmd })
       end
 
       -- Better Around/Inside textobjects
@@ -99,8 +90,9 @@ return {
       require('mini.indentscope').setup {
         symbol = '│',
       }
-      vim.cmd 'highlight! link MiniIndentscopeSymbol Comment'
       setup_toggle('i', 'indentscope')
+      vim.g.miniindentscope_disable = true -- It's a bit noisy visually; start disabled
+      vim.cmd 'highlight! link MiniIndentscopeSymbol Comment'
 
       -- Disable some operators as they're only marginally useful
       require('mini.operators').setup {
