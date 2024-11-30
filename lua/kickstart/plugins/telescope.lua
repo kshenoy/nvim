@@ -55,16 +55,32 @@ return {
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local actions = require 'telescope.actions'
+      local actions_layout = require 'telescope.actions.layout'
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
-        -- pickers = {}
+        defaults = {
+          mappings = {
+            n = {
+              ['<M-p>'] = actions_layout.toggle_preview,
+            },
+            i = {
+              ['<M-f>'] = actions.to_fuzzy_refine, -- I use <C-Space> for TMUX so remap this
+              ['<M-p>'] = actions_layout.toggle_preview,
+            },
+          },
+        },
+        pickers = {
+          buffers = {
+            mappings = {
+              i = {
+                ['<M-d>'] = actions.delete_buffer + actions.move_to_top,
+              },
+            },
+          },
+        },
         extensions = {
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
@@ -108,39 +124,41 @@ return {
       -- end, { desc = '[S]earch [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<leader>s,', function()
+      vim.keymap.set('n', '<Leader>s,', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = 'Search neovim config' })
 
       local map = vim.keymap.set
 
       -- [[ LEADER ]] --------------------------------------------------------------------------------------------------
-      map('n', "<leader>'", builtin.resume, { desc = 'Resume picker' })
-      map('n', '<leader>:', builtin.commands, { desc = 'Commands' })
-      map('n', '<leader>;', builtin.builtin, { desc = 'Telescope pickers' })
+      map('n', "<Leader>'", builtin.resume, { desc = 'Resume picker' })
+      map('n', '<Leader>:', builtin.commands, { desc = 'Commands' })
+      map('n', '<Leader>;', builtin.builtin, { desc = 'Telescope pickers' })
 
       -- [[ BUFFER ]] --------------------------------------------------------------------------------------------------
-      map('n', '<leader>bb', builtin.buffers, { desc = 'Switch buffers' })
-      map('n', '<leader><leader>', '<leader>bb', { desc = 'Switch buffers', remap = true })
+      map('n', '<Leader>bb', builtin.buffers, { desc = 'Switch buffers' })
 
       -- [[ FILE ]] ----------------------------------------------------------------------------------------------------
-      map('n', '<leader>ff', builtin.find_files, { desc = 'Find file' })
-      map('n', '<leader>fr', builtin.oldfiles, { desc = 'Find recent files' })
+      map('n', '<Leader>f.', function()
+        builtin.find_files { cwd = vim.fn.expand '%:p:h' }
+      end, { desc = 'Find files in current dir' })
+      map('n', '<Leader>ff', builtin.find_files, { desc = 'Find file' })
+      map('n', '<Leader>fr', builtin.oldfiles, { desc = 'Find recent files' })
 
       -- [[ GOTO ]] ----------------------------------------------------------------------------------------------------
 
       -- [[ INFO ]] ----------------------------------------------------------------------------------------------------
       -- Searching for things related to Neovim go here. Searching for things related to the code go in the Search keymap
-      map('n', '<leader>ih', builtin.help_tags, { desc = 'Help tags' })
-      map('n', '<leader>ij', builtin.jumplist, { desc = 'Jumplist' })
-      map('n', '<leader>ik', builtin.keymaps, { desc = 'Keymaps' })
-      map('n', '<leader>il', builtin.loclist, { desc = 'Location list' })
-      map('n', '<leader>im', builtin.marks, { desc = 'Marks' })
-      map('n', "<leader>i'", builtin.marks, { desc = 'Marks' })
-      map('n', '<leader>ip', builtin.diagnostics, { desc = 'Problems/diagnostics' }) -- VSCode calls it problems
-      map('n', '<leader>iq', builtin.quickfix, { desc = 'Quickfix' })
-      map('n', '<leader>ir', builtin.registers, { desc = 'Registers' })
-      map('n', '<leader>i"', builtin.registers, { desc = 'Registers' })
+      map('n', '<Leader>ih', builtin.help_tags, { desc = 'Help tags' })
+      map('n', '<Leader>ij', builtin.jumplist, { desc = 'Jumplist' })
+      map('n', '<Leader>ik', builtin.keymaps, { desc = 'Keymaps' })
+      map('n', '<Leader>il', builtin.loclist, { desc = 'Location list' })
+      map('n', '<Leader>im', builtin.marks, { desc = 'Marks' })
+      map('n', "<Leader>i'", builtin.marks, { desc = 'Marks' })
+      map('n', '<Leader>ip', builtin.diagnostics, { desc = 'Problems/diagnostics' }) -- VSCode calls it problems
+      map('n', '<Leader>iq', builtin.quickfix, { desc = 'Quickfix' })
+      map('n', '<Leader>ir', builtin.registers, { desc = 'Registers' })
+      map('n', '<Leader>i"', builtin.registers, { desc = 'Registers' })
 
       -- [[ KUSTOMIZE ]] -----------------------------------------------------------------------------------------------
 
@@ -148,29 +166,39 @@ return {
 
       -- [[ SEARCH ]] --------------------------------------------------------------------------------------------------
       -- Searching for things related to the code go here. Searching for things related to Neovim go in the Help keymap
-      map('n', '<leader>sb', builtin.current_buffer_fuzzy_find, { desc = 'Search current buffer' })
-      map('n', '<leader>sB', builtin.live_grep, { desc = 'Search all buffers' })
-      map('n', '<leader>st', builtin.current_buffer_tags, { desc = "Search current buffer's tags" })
-      map('n', '<leader>sT', builtin.tags, { desc = 'Search all tags' })
-      map('n', '<leader>sv', '<Plug>(leader-vcs-map)/', { desc = 'Search Repo', remap = true, silent = true })
-      map('n', '<leader>s.', builtin.grep_string, { desc = 'Search word at point(.)' })
+      map('n', '<Leader>sb', builtin.current_buffer_fuzzy_find, { desc = 'Search current buffer' })
+      map('n', '<Leader>s/', builtin.live_grep, { desc = 'Search all files' })
+      map('n', '<Leader>st', builtin.current_buffer_tags, { desc = "Search current buffer's tags" })
+      map('n', '<Leader>sT', builtin.tags, { desc = 'Search all tags' })
+      map('n', '<Leader>sv', '<Leader>v/', { desc = 'Search Repo', remap = true, silent = true })
+      map('n', '<Leader>s.', builtin.grep_string, { desc = 'Search word at point(.)' })
 
       -- [[ VCS ]] -----------------------------------------------------------------------------------------------------
-      map('n', '<leader>vf', function()
-        if require('custom.utils.vcs').find_git_root() then
+      -- FIXME: Use 'on_attach' like gitsigns to allow it to be repo-specific
+      map('n', '<Leader>vf', function()
+        local vcs = require 'custom.utils.vcs'
+        if vcs.is_git_repo() then
           return builtin.git_files()
-        else
+        elseif vcs.is_p4_repo() then
           return vim.cmd 'Telescope vim_p4_files'
+        else
+          return builtin.find_files()
         end
       end, { desc = 'VCS file' })
-      map('n', '<leader>vc', builtin.git_bcommits, { desc = 'Buffer commits' })
-      map('n', '<leader>vC', builtin.git_commits, { desc = 'All Commits' })
-      map('n', '<leader>vs', builtin.git_status, { desc = 'Status' })
-      map('n', '<leader>v?', builtin.git_status, { desc = 'Status' })
-      map('n', '<leader>v/', function()
-        if require('custom.utils.vcs').find_git_root() then
-          vim.cmd 'LiveGrepGitRoot'
+      map('n', '<Leader>vc', builtin.git_bcommits, { desc = 'Buffer commits' })
+      map('n', '<Leader>vC', builtin.git_commits, { desc = 'All Commits' })
+      map('n', '<Leader>vs', builtin.git_status, { desc = 'Status' })
+      map('n', '<Leader>v?', builtin.git_status, { desc = 'Status' })
+      map('n', '<Leader>v/', function()
+        local opts = {}
+        local vcs = require 'custom.utils.vcs'
+        local root = vcs.get_git_root() or vcs.get_p4_root()
+        if root then
+          opts = {
+            cwd = root,
+          }
         end
+        require('telescope.builtin').live_grep(opts)
       end, { desc = 'Search repo' })
     end,
   },
