@@ -2,6 +2,29 @@ return {
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
+      local setup_toggle = function(key, cmd)
+        local util = require 'lazy.core.util'
+        local opt = 'mini' .. cmd .. '_disable'
+
+        vim.keymap.set('n', '<Leader>t' .. string.lower(key), function()
+          vim.b[opt] = not vim.b[opt]
+          if vim.b[opt] then
+            util.warn('Disabled ' .. cmd .. ' in current buffer', { title = 'Option' })
+          else
+            util.info('Enabled ' .. cmd .. ' in current buffer', { title = 'Option' })
+          end
+        end, { desc = 'Toggle mini-' .. cmd })
+
+        vim.keymap.set('n', '<Leader>t' .. string.upper(key), function()
+          vim.g[opt] = not vim.g[opt]
+          if vim.g[opt] then
+            util.warn('Disabled ' .. cmd, { title = 'Option' })
+          else
+            util.info('Enabled ' .. cmd, { title = 'Option' })
+          end
+        end, { desc = 'Toggle mini-' .. cmd .. ' (globally)' })
+      end
+
       -- Better Around/Inside textobjects
       --
       -- Examples:
@@ -46,7 +69,9 @@ return {
 
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
-      require('mini.basics').setup({
+      require('mini.align').setup()
+
+      require('mini.basics').setup {
         options = {
           -- Extra UI features ('winblend', 'cmdheight=0', ...)
           extra_ui = true,
@@ -57,17 +82,33 @@ return {
         mappings = {
           -- Prefix for mappings that toggle common options ('wrap', 'spell', ...).
           -- Supply empty string to not create these mappings.
-          option_toggle_prefix = '<leader>t',
-
+          option_toggle_prefix = '<Leader>t',
         },
-      })
-      require('mini.align').setup()
-      require('mini.bracketed').setup()
+      }
+
+      require('mini.bracketed').setup {
+        -- Replacing 'c' as it conflicts with gitsigns and vim's default movement in diffs
+        -- 'gc' is a good alternative as it's also used as the 'comment' operator
+        comment = { suffix = 'gc' },
+        indent = { suffix = '' },
+      }
 
       require('mini.bufremove').setup()
-      vim.keymap.set('n', '<Plug>(leader-buffer-map)d', require('mini.bufremove').delete, { desc = "Delete Buffer" })
+      vim.keymap.set('n', '<Leader>bd', require('mini.bufremove').delete, { desc = 'Delete Buffer' })
 
-      require('mini.operators').setup()
+      require('mini.indentscope').setup {
+        symbol = '│',
+      }
+      vim.cmd 'highlight! link MiniIndentscopeSymbol Comment'
+      setup_toggle('i', 'indentscope')
+
+      -- Disable some operators as they're only marginally useful
+      require('mini.operators').setup {
+        evaluate = { prefix = '' },
+        multiply = { prefix = '' },
+        sort = { prefix = '' },
+      }
+
       require('mini.pairs').setup()
     end,
   },
