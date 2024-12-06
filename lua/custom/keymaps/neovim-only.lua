@@ -54,7 +54,27 @@ map('n', '<Leader>kq', function()
 end, { desc = 'Toggle QuickFix' })
 
 -- Window resize (respecting `v:count`)
-map('n', '<C-S-Left>', '"<Cmd>vertical resize -" . 3*v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Decrease window width' })
-map('n', '<C-S-Right>', '"<Cmd>vertical resize +" . 3*v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Increase window width' })
-map('n', '<C-S-Down>', '"<Cmd>resize -" . 2*v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Decrease window height' })
-map('n', '<C-S-Up>', '"<Cmd>resize +" . 2*v:count1 . "<CR>"', { expr = true, replace_keycodes = false, desc = 'Increase window height' })
+map(
+  'n',
+  '<C-S-Left>',
+  '"<Cmd>vertical resize -" . 3*v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Decrease window width' }
+)
+map(
+  'n',
+  '<C-S-Right>',
+  '"<Cmd>vertical resize +" . 3*v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Increase window width' }
+)
+map(
+  'n',
+  '<C-S-Down>',
+  '"<Cmd>resize -" . 2*v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Decrease window height' }
+)
+map(
+  'n',
+  '<C-S-Up>',
+  '"<Cmd>resize +" . 2*v:count1 . "<CR>"',
+  { expr = true, replace_keycodes = false, desc = 'Increase window height' }
+)
