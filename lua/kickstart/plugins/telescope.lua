@@ -124,7 +124,7 @@ return {
       -- end, { desc = '[S]earch [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<Leader>s,', function()
+      vim.keymap.set('n', '<Leader>f,', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = 'Search neovim config' })
 
@@ -148,7 +148,7 @@ return {
       -- [[ GOTO ]] ----------------------------------------------------------------------------------------------------
 
       -- [[ INFO ]] ----------------------------------------------------------------------------------------------------
-      -- Searching for things related to Neovim go here. Searching for things related to the code go in the Search keymap
+      -- Searching for neovim-related things go here. Searching for code-related things go in the Search keymap
       map('n', '<Leader>ih', builtin.help_tags, { desc = 'Help tags' })
       map('n', '<Leader>ij', builtin.jumplist, { desc = 'Jumplist' })
       map('n', '<Leader>ik', builtin.keymaps, { desc = 'Keymaps' })
@@ -167,6 +167,12 @@ return {
       -- [[ SEARCH ]] --------------------------------------------------------------------------------------------------
       -- Searching for things related to the code go here. Searching for things related to Neovim go in the Help keymap
       map('n', '<Leader>sb', builtin.current_buffer_fuzzy_find, { desc = 'Search current buffer' })
+      map('n', '<Leader>sB', function()
+        builtin.live_grep {
+          grep_open_files = true,
+          prompt_title = 'Live Grep (all buffers)',
+        }
+      end, { desc = 'Search all buffers' })
       map('n', '<Leader>s/', builtin.live_grep, { desc = 'Search all files' })
       map('n', '<Leader>st', builtin.current_buffer_tags, { desc = "Search current buffer's tags" })
       map('n', '<Leader>sT', builtin.tags, { desc = 'Search all tags' })
