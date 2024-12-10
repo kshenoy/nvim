@@ -36,26 +36,15 @@ function M.is_p4_repo()
   if not vim.fn.executable 'p4' then
     return false
   end
-  return false
+  vim.fn.system('p4 -F %client% info')
+  return vim.v.shell_error == 0
 end
 
 function M.get_p4_root()
-  if not M.is_p4_repo() then
-    return nil
+  if M.is_p4_repo() then
+    return vim.fn.systemlist('p4 -F %clientRoot% -ztag info')[1]
   end
-
-  -- require('plenary.job'):new({
-  --   command = 'p4',
-  --   args = { '--files' },
-  --   cwd = vim.fn.getcwd(),
-  --   env = { ['a'] = 'b' },
-  --   on_exit = function(j, return_val)
-  --     -- print(return_val)
-  --     -- print(j:result())
-  --   end,
-  -- }):sync() -- or start()
-
-  return false
+  return nil
 end
 
 return M
