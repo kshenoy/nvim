@@ -61,7 +61,11 @@ return {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        defaults = {
+        -- This is a workaround to set a theme by default by grabbing the relevant options from it and merging it in
+        defaults = vim.tbl_extend('force', require('telescope.themes').get_ivy(), {
+          layout_config = {
+            height = 0.618,
+          },
           mappings = {
             n = {
               ['<M-p>'] = actions_layout.toggle_preview,
@@ -71,7 +75,7 @@ return {
               ['<M-p>'] = actions_layout.toggle_preview,
             },
           },
-        },
+        }),
         pickers = {
           buffers = {
             mappings = {
@@ -124,41 +128,39 @@ return {
       -- end, { desc = '[S]earch [/] in Open Files' })
 
       -- Shortcut for searching your Neovim configuration files
-      vim.keymap.set('n', '<Leader>f,', function()
+      vim.keymap.set('n', '<Leader>f,', function() -- ',' because MacOS uses , for settings/preferences
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = 'Search neovim config' })
 
-      local map = vim.keymap.set
-
       -- [[ LEADER ]] --------------------------------------------------------------------------------------------------
-      map('n', "<Leader>'", builtin.resume, { desc = 'Resume picker' })
-      map('n', '<Leader>:', builtin.commands, { desc = 'Commands' })
-      map('n', '<Leader>;', builtin.builtin, { desc = 'Telescope pickers' })
+      vim.keymap.set('n', "<Leader>'", builtin.resume, { desc = 'Resume picker' })
+      vim.keymap.set('n', '<Leader>:', builtin.commands, { desc = 'Commands' })
+      vim.keymap.set('n', '<Leader>;', builtin.builtin, { desc = 'Telescope pickers' })
 
       -- [[ BUFFER ]] --------------------------------------------------------------------------------------------------
-      map('n', '<Leader>bb', builtin.buffers, { desc = 'Switch buffers' })
+      vim.keymap.set('n', '<Leader>bb', builtin.buffers, { desc = 'Switch buffers' })
 
       -- [[ FILE ]] ----------------------------------------------------------------------------------------------------
-      map('n', '<Leader>f.', function()
+      vim.keymap.set('n', '<Leader>fd', function()
         builtin.find_files { cwd = vim.fn.expand '%:p:h' }
       end, { desc = 'Find files in current dir' })
-      map('n', '<Leader>ff', builtin.find_files, { desc = 'Find file' })
-      map('n', '<Leader>fr', builtin.oldfiles, { desc = 'Find recent files' })
+      vim.keymap.set('n', '<Leader>ff', builtin.find_files, { desc = 'Find file' })
+      vim.keymap.set('n', '<Leader>fr', builtin.oldfiles, { desc = 'Find recent files' })
 
       -- [[ GOTO ]] ----------------------------------------------------------------------------------------------------
 
       -- [[ INFO ]] ----------------------------------------------------------------------------------------------------
       -- Searching for neovim-related things go here. Searching for code-related things go in the Search keymap
-      map('n', '<Leader>ih', builtin.help_tags, { desc = 'Help tags' })
-      map('n', '<Leader>ij', builtin.jumplist, { desc = 'Jumplist' })
-      map('n', '<Leader>ik', builtin.keymaps, { desc = 'Keymaps' })
-      map('n', '<Leader>il', builtin.loclist, { desc = 'Location list' })
-      map('n', '<Leader>im', builtin.marks, { desc = 'Marks' })
-      map('n', "<Leader>i'", builtin.marks, { desc = 'Marks' })
-      map('n', '<Leader>ip', builtin.diagnostics, { desc = 'Problems/diagnostics' }) -- VSCode calls it problems
-      map('n', '<Leader>iq', builtin.quickfix, { desc = 'Quickfix' })
-      map('n', '<Leader>ir', builtin.registers, { desc = 'Registers' })
-      map('n', '<Leader>i"', builtin.registers, { desc = 'Registers' })
+      vim.keymap.set('n', '<Leader>ih', builtin.help_tags, { desc = 'Help tags' })
+      vim.keymap.set('n', '<Leader>ij', builtin.jumplist, { desc = 'Jumplist' })
+      vim.keymap.set('n', '<Leader>ik', builtin.keymaps, { desc = 'Keymaps' })
+      vim.keymap.set('n', '<Leader>il', builtin.loclist, { desc = 'Location list' })
+      vim.keymap.set('n', '<Leader>im', builtin.marks, { desc = 'Marks' })
+      vim.keymap.set('n', "<Leader>i'", builtin.marks, { desc = 'Marks' })
+      vim.keymap.set('n', '<Leader>ip', builtin.diagnostics, { desc = 'Problems/diagnostics' }) -- VSCode calls it problems
+      vim.keymap.set('n', '<Leader>iq', builtin.quickfix, { desc = 'Quickfix' })
+      vim.keymap.set('n', '<Leader>ir', builtin.registers, { desc = 'Registers' })
+      vim.keymap.set('n', '<Leader>i"', builtin.registers, { desc = 'Registers' })
 
       -- [[ KUSTOMIZE ]] -----------------------------------------------------------------------------------------------
 
@@ -166,22 +168,22 @@ return {
 
       -- [[ SEARCH ]] --------------------------------------------------------------------------------------------------
       -- Searching for things related to the code go here. Searching for things related to Neovim go in the Help keymap
-      map('n', '<Leader>sb', builtin.current_buffer_fuzzy_find, { desc = 'Search current buffer' })
-      map('n', '<Leader>sB', function()
+      vim.keymap.set('n', '<Leader>sb', builtin.current_buffer_fuzzy_find, { desc = 'Search current buffer' })
+      vim.keymap.set('n', '<Leader>sB', function()
         builtin.live_grep {
           grep_open_files = true,
-          prompt_title = 'Live Grep (all buffers)',
+          prompt_title = 'Search all buffers',
         }
       end, { desc = 'Search all buffers' })
-      map('n', '<Leader>s/', builtin.live_grep, { desc = 'Search all files' })
-      map('n', '<Leader>st', builtin.current_buffer_tags, { desc = "Search current buffer's tags" })
-      map('n', '<Leader>sT', builtin.tags, { desc = 'Search all tags' })
-      map('n', '<Leader>sv', '<Leader>v/', { desc = 'Search Repo', remap = true, silent = true })
-      map('n', '<Leader>s.', builtin.grep_string, { desc = 'Search word at point(.)' })
+      vim.keymap.set('n', '<Leader>s/', builtin.live_grep, { desc = 'Search all files' })
+      vim.keymap.set('n', '<Leader>st', builtin.current_buffer_tags, { desc = "Search buffer's tags" })
+      vim.keymap.set('n', '<Leader>sT', builtin.tags, { desc = 'Search all tags' })
+      vim.keymap.set('n', '<Leader>sv', '<Leader>v/', { desc = 'Search Repo', remap = true, silent = true })
+      vim.keymap.set('n', '<Leader>s.', builtin.grep_string, { desc = 'Search word at point(.)' })
 
       -- [[ VCS ]] -----------------------------------------------------------------------------------------------------
       -- FIXME: Use 'on_attach' like gitsigns to allow it to be repo-specific
-      map('n', '<Leader>vf', function()
+      vim.keymap.set('n', '<Leader>vf', function()
         local vcs = require 'custom.utils.vcs'
         if vcs.is_git_repo() then
           return builtin.git_files()
@@ -191,11 +193,11 @@ return {
           return builtin.find_files()
         end
       end, { desc = 'VCS file' })
-      map('n', '<Leader>vc', builtin.git_bcommits, { desc = 'Buffer commits' })
-      map('n', '<Leader>vC', builtin.git_commits, { desc = 'All Commits' })
-      map('n', '<Leader>vs', builtin.git_status, { desc = 'Status' })
-      map('n', '<Leader>v?', builtin.git_status, { desc = 'Status' })
-      map('n', '<Leader>v/', function()
+      vim.keymap.set('n', '<Leader>vc', builtin.git_bcommits, { desc = 'Buffer commits' })
+      vim.keymap.set('n', '<Leader>vC', builtin.git_commits, { desc = 'All Commits' })
+      vim.keymap.set('n', '<Leader>vs', builtin.git_status, { desc = 'Status' })
+      vim.keymap.set('n', '<Leader>v?', builtin.git_status, { desc = 'Status' })
+      vim.keymap.set('n', '<Leader>v/', function()
         local opts = {}
         local vcs = require 'custom.utils.vcs'
         local root = vcs.get_git_root() or vcs.get_p4_root()
