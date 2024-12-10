@@ -2,22 +2,20 @@
 -- TODO: Change LocalLeader from '\' to 'Ctrl+\' to allow using it in Insert mode
 -- TODO: Use settings.cycler to replace multiple commands with a single toggle eg. pin/unpin etc.
 
-local map = vim.keymap
-
 -- [[ GLOBAL ]]---------------------------------------------------------------------------------------------------------
--- map.set('n', 'z=', '<Cmd>call VSCodeNotify("workbench.action.toggleSidebarVisibility")<CR>', {remap=true})
-map.set('n', '[d', '<Cmd>call VSCodeNotify("editor.action.marker.prev")<CR>', { remap = true })
-map.set('n', ']d', '<Cmd>call VSCodeNotify("editor.action.marker.next")<CR>', { remap = true })
+-- vim.keymap.set('n', 'z=', '<Cmd>call VSCodeNotify("workbench.action.toggleSidebarVisibility")<CR>', {remap=true})
+vim.keymap.set('n', '[d', '<Cmd>call VSCodeNotify("editor.action.marker.prev")<CR>', { remap = true })
+vim.keymap.set('n', ']d', '<Cmd>call VSCodeNotify("editor.action.marker.next")<CR>', { remap = true })
 
-map.set({ 'n', 'o', 'x' }, 'gc', '<Plug>VSCodeCommentary', { remap = true })
-map.set('n', 'gcc', '<Plug>VSCodeCommentaryLine', { remap = true })
+vim.keymap.set({ 'n', 'o', 'x' }, 'gc', '<Plug>VSCodeCommentary', { remap = true })
+vim.keymap.set('n', 'gcc', '<Plug>VSCodeCommentaryLine', { remap = true })
 
 -- [[ LEADER ]] --------------------------------------------------------------------------------------------------------
 -- The Leader is used for global maps.
 -- It needs to be defined before the first map is called so it's defined in init.lua
 
 local mapL = function(key, cmd)
-  map.set('n', '<Leader>' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set('n', '<Leader>' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 
 mapL('<Leader>', 'workbench.action.quickOpen') -- Ctrl+P
@@ -31,14 +29,19 @@ mapL('<Tab>', 'workbench.action.showAllEditors')
 -- It needs to be defined before the first map is called so it's defined in init.lua
 
 local mapLL = function(key, cmd)
-  map.set('n', '<LocalLeader>' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set('n', '<LocalLeader>' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 -- mapLL('<LocalLeader>', 'editor.action.goToDeclaration')
 
 -- [[ BUFFER ]] --------------------------------------------------------------------------------------------------------
 -- Bindings related to the buffer (editor)
 local mapb = function(key, cmd)
-  map.set('n', '<Plug>(leader-buffer-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set(
+    'n',
+    '<Plug>(leader-buffer-map)' .. key,
+    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
+    { remap = true }
+  )
 end
 
 -- mapb('a', 'workbench.action.showAllEditorsByMostRecentlyUsed')
@@ -66,7 +69,12 @@ mapb('`', 'workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup')
 -- [[ EDITOR-GROUPS ]] -------------------------------------------------------------------------------------------------
 -- Bindings related to the editor-group (window)
 local mapw = function(key, cmd)
-  map.set('n', '<Plug>(leader-window-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set(
+    'n',
+    '<Plug>(leader-window-map)' .. key,
+    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
+    { remap = true }
+  )
 end
 
 mapw('c', 'workbench.action.closeGroup')
@@ -87,7 +95,7 @@ mapw('=', 'workbench.action.evenEditorWidths')
 -- [[ CODE ]] ----------------------------------------------------------------------------------------------------------
 -- Bindings that act upon or affect the code
 local mapc = function(key, cmd)
-  map.set('n', '<Plug>(leader-code-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set('n', '<Plug>(leader-code-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 
 mapc('r', 'editor.action.rename')
@@ -104,7 +112,7 @@ mapc('r', 'editor.action.rename')
 
 -- [[ GOTO ]] ----------------------------------------------------------------------------------------------------------
 local mapg = function(key, cmd)
-  map.set('n', '<Plug>(leader-goto-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set('n', '<Plug>(leader-goto-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 
 -- General pattern followed in defining these bindings
@@ -120,7 +128,7 @@ mapg('<C-w>d', 'editor.action.revealDefinitionAside')
 
 mapg('D', 'editor.action.revealDeclaration')
 mapg('<C-S-d>', 'editor.action.peekDeclaration')
-map.set('n', '<Plug>(leader-goto-map)<C-w>D', function()
+vim.keymap.set('n', '<Plug>(leader-goto-map)<C-w>D', function()
   VSCodeNotify 'editor.action.openDeclarationToTheSide'
   VSCodeNotify 'editor.action.revealDeclaration'
 end, { remap = true })
@@ -137,14 +145,14 @@ mapg('<C-w>r', 'openReferenceToSide')
 -- [[ FILE ]] ----------------------------------------------------------------------------------------------------------
 -- Bindings that act upon or affect the code
 local mapf = function(key, cmd)
-  map.set('n', '<Plug>(leader-file-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set('n', '<Plug>(leader-file-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 
 mapf('y', 'copyFilePath') -- (y)ank file-path. doom also uses 'y'
 
 -- [[ INFO ]] ----------------------------------------------------------------------------------------------------------
 local mapi = function(key, cmd)
-  map.set('n', '<Plug>(leader-info-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set('n', '<Plug>(leader-info-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 
 mapi('k', 'workbench.action.openGlobalKeybindings')
@@ -155,7 +163,12 @@ mapi('p', 'workbench.actions.view.problems')
 -- Bindings specific to the VSCode application. VSCode seems to use Ctrl+K a lot
 -- Other editor-agnostic toggle keybinds go in '<Leader>t'
 local mapk = function(key, cmd)
-  map.set('n', '<Plug>(leader-kustomize-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set(
+    'n',
+    '<Plug>(leader-kustomize-map)' .. key,
+    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
+    { remap = true }
+  )
 end
 
 mapk('b', 'workbench.action.toggleSidebarVisibility')
@@ -181,20 +194,35 @@ mapk('<C-l>', 'workbench.action.customizeLayout')
 
 -- [[ PROJECTS/FOLDERS/WORKSPACES ]] -----------------------------------------------------------------------------------
 local mapp = function(key, cmd)
-  map.set('n', '<Plug>(leader-project-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set(
+    'n',
+    '<Plug>(leader-project-map)' .. key,
+    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
+    { remap = true }
+  )
 end
 
 mapp('p', 'workbench.action.openRecent')
 
 -- [[ SEARCH ]] --------------------------------------------------------------------------------------------------------
 local maps = function(key, cmd)
-  map.set('n', '<Plug>(leader-search-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set(
+    'n',
+    '<Plug>(leader-search-map)' .. key,
+    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
+    { remap = true }
+  )
 end
 
 -- [[ TOGGLE ]] --------------------------------------------------------------------------------------------------------
 -- Editor-agnostic toggle keybinds go here while anything that is specific to VSCode should go in '<Leader>k'
 local mapt = function(key, cmd)
-  map.set('n', '<Plug>(leader-toggle-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set(
+    'n',
+    '<Plug>(leader-toggle-map)' .. key,
+    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
+    { remap = true }
+  )
 end
 
 mapt('i', 'settings.cycle.editor-guides-indentation')
@@ -207,7 +235,7 @@ mapt('<Tab>', 'workbench.action.toggleTabsVisibility')
 
 -- [[ VCS ]] -----------------------------------------------------------------------------------------------------------
 local mapv = function(key, cmd)
-  map.set('n', '<Plug>(leader-vcs-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
+  vim.keymap.set('n', '<Plug>(leader-vcs-map)' .. key, '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>', { remap = true })
 end
 
 mapv('a', 'perforce.annotate')

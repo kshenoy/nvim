@@ -1,22 +1,21 @@
 -- See `:help vim.keymap.set()`
-local map = vim.keymap.set
 
 -- REMAPPING -----------------------------------------------------------------------------------------------------------
 -- Move by visual lines if count is not supplied. If a count is supplied then move by normal lines.
 -- This makes it easy to supply a count to line-based operations such as yank/delete without worrying about visual lines
-map({ 'n', 'v', 'o', 's', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
-map({ 'n', 'v', 'o', 's', 'x' }, 'gj', 'j')
-map({ 'n', 'v', 'o', 's', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-map({ 'n', 'v', 'o', 's', 'x' }, 'gk', 'k')
+vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'gj', 'j')
+vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'gk', 'k')
 
 -- 'n' always searches forward and 'N' always searches backward
-map(
+vim.keymap.set(
   { 'n', 'v', 'o', 's', 'x' },
   'n',
   "v:searchforward == 1 ? 'n' : 'N'",
   { expr = true, desc = "'n' always searches forward" }
 )
-map(
+vim.keymap.set(
   { 'n', 'v', 'o', 's', 'x' },
   'N',
   "v:searchforward == 1 ? 'N' : 'n'",
@@ -24,38 +23,43 @@ map(
 )
 
 -- Swap 'U' and 'C-R'
-map('n', '<C-R>', 'U', { silent = true })
-map('n', 'U', '<C-R>', { silent = true })
+vim.keymap.set('n', '<C-R>', 'U', { silent = true })
+vim.keymap.set('n', 'U', '<C-R>', { silent = true })
 
 -- Remap 'w' to behave as 'w' should in all cases (:h cw). Use `ce` to do what `cw` used to
-map('n', 'cw', 'dwi')
-map('n', 'cW', 'dWi')
+vim.keymap.set('n', 'cw', 'dwi')
+vim.keymap.set('n', 'cW', 'dWi')
 
 -- BUFFERS -------------------------------------------------------------------------------------------------------------
 -- Switching buffers is something I do often, so make that as fast as possible
-map('n', '<Leader><Leader>', '<Leader>bb', { remap = true, silent = true })
-map('n', '<Leader>,', '<cmd>b#<CR>', { silent = true, desc = 'Alternate buffer' })
+vim.keymap.set('n', '<Leader><Leader>', '<Leader>bb', { remap = true, silent = true })
+vim.keymap.set('n', '<Leader>,', '<cmd>b#<CR>', { silent = true, desc = 'Alternate buffer' })
 
 -- INDENTATION AND STYLING ---------------------------------------------------------------------------------------------
 -- Preserve visual block after indenting, increment/decrement
-map('v', '>', '>gv')
-map('v', '<', '<gv')
+vim.keymap.set('v', '>', '>gv')
+vim.keymap.set('v', '<', '<gv')
 
 -- SEARCH AND REPLACE --------------------------------------------------------------------------------------------------
 -- Use very-magic (PCRE-ish) while searching
--- map('n', '/', '/\\v')
--- map('n', '?', '?\\v')
--- map('c', '%s/', '%s/\\v')
--- map('c', '.s/', '.s/\\v')
--- map('x', ':s/', ':s/\\%V\\v')
+-- vim.keymap.set('n', '/', '/\\v')
+-- vim.keymap.set('n', '?', '?\\v')
+-- vim.keymap.set('c', '%s/', '%s/\\v')
+-- vim.keymap.set('c', '.s/', '.s/\\v')
+-- vim.keymap.set('x', ':s/', ':s/\\%V\\v')
 
 -- Replace word under the cursor. Type replacement, press `<ESC>`. Use `.` to jump to next occurence and repeat
-map('n', 'c*', '*<C-O>cgn')
-map('n', 'cg*', 'g*<C-O>cgn')
+vim.keymap.set('n', 'c*', '*<C-O>cgn')
+vim.keymap.set('n', 'cg*', 'g*<C-O>cgn')
 
 -- MISC ----------------------------------------------------------------------------------------------------------------
 -- Fill Text Width
-map('n', '<Leader>mf', require('custom.utils').fill_width, { desc = 'Fill-width with character', silent = true })
+vim.keymap.set(
+  'n',
+  '<Leader>mf',
+  require('custom.utils').fill_width,
+  { desc = 'Fill-width with character', silent = true }
+)
 
 if require('custom.utils').is_neovim() then
   require 'custom.keymaps.neovim-only'

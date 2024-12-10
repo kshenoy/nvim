@@ -1,14 +1,12 @@
-local map = vim.keymap.set
-
 -- [[ REMAPS ]] --------------------------------------------------------------------------------------------------------
 -- Display full path and filename
-map('n', '<C-G>', '2<C-G>')
+vim.keymap.set('n', '<C-G>', '2<C-G>')
 
 -- Remap `ZQ` to quit everything. I can always use `:bd` to delete a single buffer
-map('n', 'ZQ', '<Cmd>qall!<CR>')
+vim.keymap.set('n', 'ZQ', '<Cmd>qall!<CR>')
 
 -- Copy the file name to unix visual select buffer
-map('n', '<Leader>fy', function()
+vim.keymap.set('n', '<Leader>fy', function()
   vim.cmd('let @+="' .. vim.fn.expand '%:p' .. '"')
 end, { desc = 'Copy file path' })
 
@@ -35,7 +33,7 @@ end, {desc="Repo status"})
 --
 
 -- [[ MISC ]] ----------------------------------------------------------------------------------------------------------
-map('n', '<Leader>kl', function()
+vim.keymap.set('n', '<Leader>kl', function()
   if (vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0 then
     vim.cmd 'lopen'
   else
@@ -43,7 +41,7 @@ map('n', '<Leader>kl', function()
   end
 end, { desc = 'Toggle LocationList' })
 
-map('n', '<Leader>kq', function()
+vim.keymap.set('n', '<Leader>kq', function()
   for _, win in pairs(vim.fn.getwininfo()) do
     if (win.quickfix == 1) and (win.loclist == 0) then
       vim.cmd 'cclose'
@@ -54,27 +52,31 @@ map('n', '<Leader>kq', function()
 end, { desc = 'Toggle QuickFix' })
 
 -- Window resize (respecting `v:count`)
-map(
+vim.keymap.set(
   'n',
-  '<C-S-Left>',
+  '<Left>',
   '"<Cmd>vertical resize -" . 3*v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Decrease window width' }
 )
-map(
+vim.keymap.set(
   'n',
-  '<C-S-Right>',
+  '<Right>',
   '"<Cmd>vertical resize +" . 3*v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Increase window width' }
 )
-map(
+vim.keymap.set(
   'n',
-  '<C-S-Down>',
-  '"<Cmd>resize -" . 2*v:count1 . "<CR>"',
+  '<Down>',
+  '"<Cmd>resize -" . v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Decrease window height' }
 )
-map(
+vim.keymap.set(
   'n',
-  '<C-S-Up>',
-  '"<Cmd>resize +" . 2*v:count1 . "<CR>"',
+  '<Up>',
+  '"<Cmd>resize +" . v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Increase window height' }
 )
+
+vim.keymap.set('n', '<Leader>x<Leader>', '<cmd>source %<CR>', { desc = 'Evaluate buffer' })
+vim.keymap.set('n', '<Leader>xx', '<cmd>.lua<CR>', { desc = 'Evaluate current line' })
+vim.keymap.set('v', '<Leader>xx', '<cmd>lua<CR>', { desc = 'Evaluate selection' })
