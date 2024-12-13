@@ -12,6 +12,7 @@ return {
       library = {
         -- Load luvit types when the `vim.uv` word is found
         { path = 'luvit-meta/library', words = { 'vim%.uv' } },
+        { path = 'snacks.nvim', words = { 'Snacks' } },
       },
     },
   },
@@ -84,7 +85,8 @@ return {
           map('<Leader>gd', require('telescope.builtin').lsp_definitions, 'Goto Definition')
 
           -- Find references for the word under your cursor.
-          map('<Leader>gr', require('telescope.builtin').lsp_references, 'Goto References')
+          map('<Leader>gr', require('telescope.builtin').lsp_references, 'Search References')
+          map('<Leader>sr', require('telescope.builtin').lsp_references, 'Search References')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
@@ -97,12 +99,12 @@ return {
 
           -- Fuzzy find all the symbols in your current document.
           --  Symbols are things like variables, functions, types, etc.
-          map('<Leader>go', require('telescope.builtin').lsp_document_symbols, 'Goto Symbol (buffer)')
+          map('<Leader>go', require('telescope.builtin').lsp_document_symbols, 'Search Symbol (buffer)')
           map('<Leader>so', require('telescope.builtin').lsp_document_symbols, 'Search Symbol (buffer)')
 
           -- Fuzzy find all the symbols in your current workspace.
           --  Similar to document symbols, except searches over your entire project.
-          map('<Leader>gO', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Goto Symbol (all buffers)')
+          map('<Leader>gO', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Search Symbol (all buffers)')
           map('<Leader>sO', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Search Symbol (all buffers)')
 
           -- Rename the variable under your cursor.
