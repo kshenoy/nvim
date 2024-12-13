@@ -131,6 +131,9 @@ return {
       vim.keymap.set('n', '<Leader>f,', function() -- ',' because MacOS uses , for settings/preferences
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = 'Search neovim config' })
+      vim.keymap.set('n', '<Leader>fg,', function()
+        builtin.find_files { cwd = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy') }
+      end, { desc = 'Search all plugins' })
 
       -- [[ LEADER ]] --------------------------------------------------------------------------------------------------
       vim.keymap.set('n', "<Leader>'", builtin.resume, { desc = 'Resume picker' })

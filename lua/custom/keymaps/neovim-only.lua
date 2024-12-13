@@ -78,5 +78,5 @@ vim.keymap.set(
 )
 
 vim.keymap.set('n', '<Leader>x<Leader>', '<cmd>source %<CR>', { desc = 'Evaluate buffer' })
-vim.keymap.set('n', '<Leader>xx', '<cmd>.lua<CR>', { desc = 'Evaluate current line' })
-vim.keymap.set('v', '<Leader>xx', '<cmd>lua<CR>', { desc = 'Evaluate selection' })
+vim.keymap.set('n', '<Leader>xx', ':.lua<CR>', { desc = 'Evaluate current line' })
+vim.keymap.set('v', '<Leader>xx', ':lua<CR>', { desc = 'Evaluate selection' })

@@ -12,6 +12,7 @@ return {
       library = {
         -- Load luvit types when the `vim.uv` word is found
         { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+        { path = 'snacks.nvim', words = { 'Snacks' } },
       },
     },
   },
@@ -85,6 +86,7 @@ return {
 
           -- Find references for the word under your cursor.
           map('<Leader>gr', require('telescope.builtin').lsp_references, 'Goto References')
+          map('<Leader>sr', require('telescope.builtin').lsp_references, 'Search References')
 
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.

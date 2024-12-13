@@ -118,16 +118,15 @@ end
 -- General pattern followed in defining these bindings
 --   (d)efinitions, (h)ierarchy, de(k)larations, (i)mplementation, symb(o)l, (r)eferences, (t)ypes
 -- These are then combined with modifiers to specify how it should be shown
---   Ctrl   : Peek at something to "control" what's shown
---   Alt    : Show all of something
+--   k      : to peek as 'K' is used to show hover information and this is kinda similar
 --   Ctrl+W : Open on the side
 
 mapg('d', 'editor.action.revealDefinition')
-mapg('<C-d>', 'editor.action.peekDefinition')
+mapg('kd', 'editor.action.peekDefinition')
 mapg('<C-w>d', 'editor.action.revealDefinitionAside')
 
 mapg('D', 'editor.action.revealDeclaration')
-mapg('<C-S-d>', 'editor.action.peekDeclaration')
+mapg('kD', 'editor.action.peekDeclaration')
 vim.keymap.set('n', '<Plug>(leader-goto-map)<C-w>D', function()
   VSCodeNotify 'editor.action.openDeclarationToTheSide'
   VSCodeNotify 'editor.action.revealDeclaration'
@@ -138,9 +137,7 @@ mapg('h', 'references-view.showCallHierarchy')
 mapg('o', 'workbench.action.gotoSymbol')
 mapg('O', 'workbench.action.showAllSymbols')
 mapg('r', 'editor.action.goToReferences')
-mapg('<C-r>', 'editor.action.referenceSearch.trigger')
-mapg('<M-r>', 'references-view.findReferences')
-mapg('<C-w>r', 'openReferenceToSide')
+mapg('kr', 'editor.action.referenceSearch.trigger') -- VSCode calls this 'Peek References'
 
 -- [[ FILE ]] ----------------------------------------------------------------------------------------------------------
 -- Bindings that act upon or affect the code
@@ -213,6 +210,8 @@ local maps = function(key, cmd)
     { remap = true }
   )
 end
+
+maps('r', 'references-view.findReferences')
 
 -- [[ TOGGLE ]] --------------------------------------------------------------------------------------------------------
 -- Editor-agnostic toggle keybinds go here while anything that is specific to VSCode should go in '<Leader>k'
