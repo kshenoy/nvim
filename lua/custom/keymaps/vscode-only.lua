@@ -156,39 +156,6 @@ mapi('k', 'workbench.action.openGlobalKeybindings')
 mapi('K', 'workbench.action.openDefaultKeybindingsFile')
 mapi('p', 'workbench.actions.view.problems')
 
--- [[ KUSTOMIZE ]] -----------------------------------------------------------------------------------------------------
--- Bindings specific to the VSCode application. VSCode seems to use Ctrl+K a lot
--- Other editor-agnostic toggle keybinds go in '<Leader>t'
-local mapk = function(key, cmd)
-  vim.keymap.set(
-    'n',
-    '<Plug>(leader-kustomize-map)' .. key,
-    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
-    { remap = true }
-  )
-end
-
-mapk('b', 'workbench.action.toggleSidebarVisibility')
-mapk('B', 'workbench.action.toggleAuxiliaryBar')
-mapk('e', 'workbench.view.explorer')
-mapk('f', 'workbench.explorer.fileView.focus')
-mapk('x', 'workbench.view.extensions')
-mapk('o', 'outline.focus')
-mapk('p', 'workbench.action.togglePanel')
-mapk('P', 'workbench.action.toggleMaximizedPanel')
-mapk('s', 'workbench.action.toggleStatusbarVisibility')
-mapk('t', 'workbench.action.selectTheme')
-mapk('v', 'workbench.view.scm') -- version-control
-mapk('z', 'workbench.action.toggleZenMode')
-mapk(',', 'workbench.action.openSettings2') -- Similar to MacOS
-mapk('_', 'workbench.action.toggleMenuBar') -- Menus have underscores for selection
-mapk('>', 'breadcrumbs.toggle') -- breadcrumbs use '>' for separators
-mapk('`', 'workbench.action.terminal.toggleTerminal')
-
--- Menu-like behavior use Ctrl maps
-mapk('<C-v>', 'workbench.action.quickOpenView')
-mapk('<C-l>', 'workbench.action.customizeLayout')
-
 -- [[ PROJECTS/FOLDERS/WORKSPACES ]] -----------------------------------------------------------------------------------
 local mapp = function(key, cmd)
   vim.keymap.set(
@@ -231,6 +198,39 @@ mapt('s', 'settings.cycle.editor-occurencesHighlight')
 mapt('t', 'workbench.action.toggleLightDarkThemes')
 mapt('w', 'editor.action.toggleWordWrap')
 mapt('<Tab>', 'workbench.action.toggleTabsVisibility')
+
+-- [[ UI ]] ------------------------------------------------------------------------------------------------------------
+-- Bindings specific to the VSCode application. VSCode seems to use Ctrl+K a lot
+-- Other editor-agnostic toggle keybinds go in '<Leader>t'
+local mapu = function(key, cmd)
+  vim.keymap.set(
+    'n',
+    '<Plug>(leader-kustomize-map)' .. key,
+    '<Cmd>call VSCodeNotify("' .. cmd .. '")<CR>',
+    { remap = true }
+  )
+end
+
+mapu('b', 'workbench.action.toggleSidebarVisibility')
+mapu('B', 'workbench.action.toggleAuxiliaryBar')
+mapu('e', 'workbench.view.explorer')
+mapu('f', 'workbench.explorer.fileView.focus')
+mapu('x', 'workbench.view.extensions')
+mapu('o', 'outline.focus')
+mapu('p', 'workbench.action.togglePanel')
+mapu('P', 'workbench.action.toggleMaximizedPanel')
+mapu('s', 'workbench.action.toggleStatusbarVisibility')
+mapu('t', 'workbench.action.selectTheme')
+mapu('v', 'workbench.view.scm') -- version-control
+mapu('z', 'workbench.action.toggleZenMode')
+mapu(',', 'workbench.action.openSettings2') -- Similar to MacOS
+mapu('_', 'workbench.action.toggleMenuBar') -- Menus have underscores for selection
+mapu('>', 'breadcrumbs.toggle') -- breadcrumbs use '>' for separators
+mapu('`', 'workbench.action.terminal.toggleTerminal')
+
+-- Menu-like behavior use Ctrl maps
+mapu('<C-v>', 'workbench.action.quickOpenView')
+mapu('<C-l>', 'workbench.action.customizeLayout')
 
 -- [[ VCS ]] -----------------------------------------------------------------------------------------------------------
 local mapv = function(key, cmd)

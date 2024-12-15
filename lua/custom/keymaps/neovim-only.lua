@@ -33,7 +33,7 @@ end, {desc="Repo status"})
 --
 
 -- [[ MISC ]] ----------------------------------------------------------------------------------------------------------
-vim.keymap.set('n', '<Leader>kl', function()
+vim.keymap.set('n', '<Leader>ul', function()
   if (vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0 then
     vim.cmd 'lopen'
   else
@@ -41,7 +41,7 @@ vim.keymap.set('n', '<Leader>kl', function()
   end
 end, { desc = 'Toggle LocationList' })
 
-vim.keymap.set('n', '<Leader>kq', function()
+vim.keymap.set('n', '<Leader>uq', function()
   for _, win in pairs(vim.fn.getwininfo()) do
     if (win.quickfix == 1) and (win.loclist == 0) then
       vim.cmd 'cclose'

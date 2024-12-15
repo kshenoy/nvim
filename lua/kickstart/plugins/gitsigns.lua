@@ -10,13 +10,6 @@ return {
       return require('custom.utils').is_neovim()
     end,
     opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
       on_attach = function(bufnr)
         local gitsigns = require 'gitsigns'
 
@@ -55,11 +48,13 @@ return {
         -- normal mode
         map('n', '<Leader>vhs', gitsigns.stage_hunk, { desc = 'Stage hunk' })
         map('n', '<leader>vhr', gitsigns.reset_hunk, { desc = 'Reset hunk' })
-        -- map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'git [S]tage buffer' })
-        map('n', '<Leader>vhS', gitsigns.undo_stage_hunk, { desc = 'Undo stage hunk' })
-        map('n', '<Leader>vr', gitsigns.reset_buffer, { desc = 'Reset buffer' })
+        map('n', '<leader>vhS', gitsigns.stage_buffer, { desc = 'Stage buffer' })
+        map('n', '<Leader>vhu', gitsigns.undo_stage_hunk, { desc = 'Undo stage hunk' })
+        map('n', '<Leader>vhR', gitsigns.reset_buffer, { desc = 'Reset buffer' })
         map('n', '<Leader>vhh', gitsigns.preview_hunk, { desc = 'Preview hunk' })
-        map('n', '<Leader>vb', gitsigns.blame_line, { desc = 'Blame line' })
+        map('n', '<leader>vb', function()
+          gitsigns.blame_line { full = true }
+        end, { desc = 'Blame line' })
         map('n', '<Leader>vd', gitsigns.diffthis, { desc = 'Diff against index' })
         map('n', '<Leader>vD', function()
           gitsigns.diffthis '@'

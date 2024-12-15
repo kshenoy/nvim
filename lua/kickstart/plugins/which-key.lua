@@ -17,7 +17,6 @@ return {
     'folke/which-key.nvim',
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
-      preset = 'helix',
       icons = {
         -- set icon mappings to true if you have a Nerd Font
         mappings = vim.g.have_nerd_font,
@@ -57,19 +56,13 @@ return {
 
       -- Document existing key chains
       spec = {
-        { '<Leader>b', group = 'Buffer' },
-        { '<Leader>c', group = 'Code', mode = { 'n', 'x' } },
-        { '<Leader>f', group = 'File' },
-        { '<Leader>g', group = 'Goto' },
-        { '<Leader>h', group = 'Help' },
-        { '<Leader>i', group = 'Info' },
-        { '<Leader>k', group = 'Kustomize' },
-        { '<Leader>o', group = 'Open' },
-        { '<Leader>p', group = 'Project' },
-        { '<Leader>s', group = 'Search' },
-        { '<Leader>t', group = 'Toggle' },
-        { '<Leader>v', group = 'VCS' },
-        { '<Leader>w', group = 'Window/Workspace' },
+        { '<leader>c', group = '[C]ode', mode = { 'n', 'x' } },
+        { '<leader>d', group = '[D]ocument' },
+        { '<leader>r', group = '[R]ename' },
+        { '<leader>s', group = '[S]earch' },
+        { '<leader>w', group = '[W]orkspace' },
+        { '<leader>t', group = '[T]oggle' },
+        { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
       },
     },
   },
