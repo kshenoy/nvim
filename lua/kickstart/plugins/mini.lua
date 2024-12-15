@@ -2,20 +2,6 @@ return {
   { -- Collection of various small independent plugins/modules
     'echasnovski/mini.nvim',
     config = function()
-      local setup_toggle = function(key, cmd)
-        local util = require 'lazy.core.util'
-        local opt = 'mini' .. cmd .. '_disable'
-
-        vim.keymap.set('n', '<Leader>t' .. key, function()
-          vim.g[opt] = not vim.g[opt]
-          if vim.g[opt] then
-            util.info('Enabled ' .. cmd, { title = 'Option' })
-          else
-            util.warn('Disabled ' .. cmd, { title = 'Option' })
-          end
-        end, { desc = 'Toggle mini-' .. cmd })
-      end
-
       -- Better Around/Inside textobjects
       --
       -- Examples:
@@ -86,13 +72,6 @@ return {
 
       require('mini.bufremove').setup()
       vim.keymap.set('n', '<Leader>bd', require('mini.bufremove').delete, { desc = 'Delete Buffer' })
-
-      require('mini.indentscope').setup {
-        symbol = '│',
-      }
-      setup_toggle('i', 'indentscope')
-      vim.g.miniindentscope_disable = true -- It's a bit noisy visually; start disabled
-      vim.cmd 'highlight! link MiniIndentscopeSymbol Comment'
 
       -- Disable some operators as they're only marginally useful
       require('mini.operators').setup {

@@ -1,6 +1,9 @@
 return {
   { -- Autocompletion
     'hrsh7th/nvim-cmp',
+    cond = function()
+      return require('custom.utils').is_neovim()
+    end,
     event = 'InsertEnter',
     dependencies = {
       -- Snippet Engine & its associated nvim-cmp source
