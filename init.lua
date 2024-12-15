@@ -85,7 +85,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
 -- Define leader and some keymaps ahead of time.
--- This needs to be the first thing so that everything else can make use of it
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 require 'custom.keymaps.bootstrap'
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
@@ -95,7 +95,7 @@ vim.g.have_nerd_font = true
 require 'options'
 
 -- [[ Basic Keymaps ]]
-require 'keymaps'
+-- require 'keymaps'  -- I don't use any of the keymaps that come with kickstart
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 require 'lazy-bootstrap'
