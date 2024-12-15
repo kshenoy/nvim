@@ -77,6 +77,11 @@ vim.keymap.set(
   { expr = true, replace_keycodes = false, desc = 'Increase window height' }
 )
 
+-- Evaluate expressions
 vim.keymap.set('n', '<Leader>x<Leader>', '<cmd>source %<CR>', { desc = 'Evaluate buffer' })
 vim.keymap.set('n', '<Leader>xx', ':.lua<CR>', { desc = 'Evaluate current line' })
 vim.keymap.set('v', '<Leader>xx', ':lua<CR>', { desc = 'Evaluate selection' })
+
+-- NOTE: This may not work in all terminal emulators/tmux/etc. Try your own mapping
+-- or just use <C-\><C-n> to exit terminal mode
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })

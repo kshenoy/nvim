@@ -59,7 +59,7 @@ return {
         mappings = {
           -- Prefix for mappings that toggle common options ('wrap', 'spell', ...).
           -- Supply empty string to not create these mappings.
-          option_toggle_prefix = '<Leader>t',
+          option_toggle_prefix = '',
         },
       }
 
