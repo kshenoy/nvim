@@ -1,20 +1,20 @@
 return { -- Colorscheme
-  "catppuccin/nvim",
-  name = "catppuccin",
+  'catppuccin/nvim',
+  name = 'catppuccin',
 
   cond = function()
     return require('custom.utils').is_neovim()
   end,
 
   config = function()
-    vim.cmd('colorscheme catppuccin-frappe')
+    vim.cmd 'colorscheme catppuccin-frappe'
   end,
 
   opts = {
-    flavour = "frappe", -- latte, frappe, macchiato, mocha
+    flavour = 'frappe', -- latte, frappe, macchiato, mocha
     background = { -- :h background
-      light = "latte",
-      dark = "frappe",
+      light = 'latte',
+      dark = 'frappe',
     },
     -- transparent_background = true,
     dim_inactive = {
@@ -38,18 +38,19 @@ return { -- Colorscheme
       native_lsp = {
         enabled = true,
         underlines = {
-          errors = { "undercurl" },
-          hints = { "undercurl" },
-          warnings = { "undercurl" },
-          information = { "undercurl" },
+          errors = { 'undercurl' },
+          hints = { 'undercurl' },
+          warnings = { 'undercurl' },
+          information = { 'undercurl' },
         },
       },
-      navic = { enabled = true, custom_bg = "lualine" },
+      navic = { enabled = true, custom_bg = 'lualine' },
       neotest = true,
       neotree = true,
       noice = true,
       notify = true,
       semantic_tokens = true,
+      snacks = true,
       telescope = true,
       treesitter = true,
       treesitter_context = true,
