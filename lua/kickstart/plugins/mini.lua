@@ -48,21 +48,6 @@ return {
       --  Check out: https://github.com/echasnovski/mini.nvim
       require('mini.align').setup()
 
-      require('mini.basics').setup {
-        options = {
-          -- Extra UI features ('winblend', 'cmdheight=0', ...)
-          extra_ui = true,
-
-          -- Presets for window borders ('single', 'double', ...)
-          win_borders = 'default',
-        },
-        mappings = {
-          -- Prefix for mappings that toggle common options ('wrap', 'spell', ...).
-          -- Supply empty string to not create these mappings.
-          option_toggle_prefix = '',
-        },
-      }
-
       require('mini.bracketed').setup {
         -- Replacing 'c' as it conflicts with gitsigns and vim's default movement in diffs
         -- 'gc' is a good alternative as it's also used as the 'comment' operator

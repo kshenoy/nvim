@@ -32,6 +32,23 @@ end, {desc="Repo status"})
 ]]
 --
 
+-- [[ TOGGLES ]] -------------------------------------------------------------------------------------------------------
+local mapt = function(key, option)
+  vim.keymap.set(
+    'n',
+    '<leader>t' .. key,
+    '<Cmd>set ' .. option .. '! ' .. option .. '?<CR>',
+    { desc = 'Toggle ' .. option }
+  )
+end
+mapt('c', 'cursorline')
+mapt('C', 'cursorcolumn')
+mapt('l', 'list')
+mapt('n', 'number')
+mapt('N', 'relativenumber')
+mapt('s', 'spell')
+mapt('w', 'wrap')
+
 -- [[ MISC ]] ----------------------------------------------------------------------------------------------------------
 vim.keymap.set('n', '<Leader>ul', function()
   if (vim.fn.getloclist(0, { winid = 0 }).winid or 0) == 0 then

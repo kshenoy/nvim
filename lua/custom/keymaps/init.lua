@@ -61,6 +61,20 @@ vim.keymap.set(
   { desc = 'Fill-width with character', silent = true }
 )
 
+-- Add empty lines before/after cursor line
+vim.keymap.set(
+  'n',
+  'gO',
+  "<Cmd>call append(line('.') - 1, repeat([''], v:count1))<CR>",
+  { desc = 'Add empty line above' }
+)
+vim.keymap.set(
+  'n',
+  'go',
+  "<Cmd>call append(line('.'),     repeat([''], v:count1))<CR>",
+  { desc = 'Add empty line below' }
+)
+
 if require('custom.utils').is_neovim() then
   require 'custom.keymaps.neovim-only'
 end

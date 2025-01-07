@@ -106,6 +106,7 @@ require 'lazy-plugins'
 -- [[ Custom overrides ]]
 require 'custom.options' -- Expand/override kickstart's default
 require 'custom.keymaps'
+require 'custom.autocmds'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
