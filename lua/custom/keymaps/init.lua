@@ -3,10 +3,13 @@
 -- REMAPPING -----------------------------------------------------------------------------------------------------------
 -- Move by visual lines if count is not supplied. If a count is supplied then move by normal lines.
 -- This makes it easy to supply a count to line-based operations such as yank/delete without worrying about visual lines
-vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
-vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'gj', 'j')
-vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
-vim.keymap.set({ 'n', 'v', 'o', 's', 'x' }, 'gk', 'k')
+-- - Don't map in Operator-pending mode because it severely changes behavior:
+--   eg. `dj` on non-wrapped line will not delete it.
+-- - `v:count == 0` makes it easier to use when using relative line numbers.
+vim.keymap.set({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true })
+vim.keymap.set({ 'n', 'x' }, 'gj', 'j')
+vim.keymap.set({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true })
+vim.keymap.set({ 'n', 'x' }, 'gk', 'k')
 
 -- 'n' always searches forward and 'N' always searches backward
 vim.keymap.set(
