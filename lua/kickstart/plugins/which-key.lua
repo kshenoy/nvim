@@ -15,6 +15,9 @@
 return {
   { -- Useful plugin to show you pending keybinds.
     'folke/which-key.nvim',
+    cond = function()
+      return require('custom.utils').is_neovim()
+    end,
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
       -- delay between pressing a key and opening which-key (milliseconds)
@@ -60,19 +63,65 @@ return {
 
       -- Document existing key chains
       spec = {
-        { '<Leader>b', group = 'Buffer' },
-        { '<Leader>c', group = 'Code', mode = { 'n', 'x' } },
-        { '<Leader>f', group = 'File' },
-        { '<Leader>g', group = 'Goto' },
-        { '<Leader>h', group = 'Help' },
-        { '<Leader>i', group = 'Info' },
-        { '<Leader>k', group = 'Kustomize' },
-        { '<Leader>o', group = 'Open' },
-        { '<Leader>p', group = 'Project' },
-        { '<Leader>s', group = 'Search' },
-        { '<Leader>t', group = 'Toggle' },
-        { '<Leader>v', group = 'VCS' },
-        { '<Leader>w', group = 'Window/Workspace' },
+        {
+          mode = { 'n', 'v' },
+          { '<leader><tab>', group = 'Tabs' },
+          {
+            '<leader>b',
+            group = 'Buffer',
+            expand = function()
+              return require('which-key.extras').expand.buf()
+            end,
+          },
+          { '<leader>c', group = 'Code' },
+          { '<leader>d', group = 'Debug' },
+          { '<leader>dp', group = 'Profiler' },
+          { '<leader>f', group = 'File/Find' },
+          { '<leader>h', group = 'Help' },
+          { '<leader>i', group = 'Info', icon = { icon = ' ', color = 'cyan' } },
+          { '<leader>o', group = 'Open' },
+          { '<leader>p', group = 'Project' },
+          { '<leader>q', group = 'Quit/Session' },
+          { '<leader>s', group = 'Search' },
+          { '<leader>t', group = 'Toggle' },
+          { '<leader>u', group = 'UI', icon = { icon = '󰙵 ', color = 'cyan' } },
+          { '<leader>v', group = 'VCS', icon = { icon = ' ', color = 'orange' } },
+          { '<leader>vh', group = 'Hunks' },
+          {
+            '<leader>w',
+            group = 'Window/Workspace',
+            proxy = '<c-w>',
+            expand = function()
+              return require('which-key.extras').expand.win()
+            end,
+          },
+          { '<leader>x', group = 'Diagnostics/Quickfix', icon = { icon = '󱖫 ', color = 'green' } },
+          { '[', group = 'prev' },
+          { ']', group = 'next' },
+          { 'g', group = 'goto' },
+          { 'gs', group = 'surround' },
+          { 'z', group = 'fold' },
+          -- better descriptions
+          { 'gx', desc = 'Open with system app' },
+          { "<leader>'", icon = { icon = ' ', color = 'blue' } },
+          { '<leader>:', icon = { icon = '󰘳 ', color = 'blue' } },
+        },
+      },
+    },
+    keys = {
+      {
+        '<leader>?',
+        function()
+          require('which-key').show { global = false }
+        end,
+        desc = 'Buffer Keymaps (which-key)',
+      },
+      {
+        '<c-w><space>',
+        function()
+          require('which-key').show { keys = '<c-w>', loop = true }
+        end,
+        desc = 'Window Hydra Mode (which-key)',
       },
     },
   },
