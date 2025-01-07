@@ -71,25 +71,25 @@ end, { desc = 'Toggle QuickFix' })
 -- Window resize (respecting `v:count`)
 vim.keymap.set(
   'n',
-  '<Left>',
+  '<C-W><',
   '"<Cmd>vertical resize -" . 3*v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Decrease window width' }
 )
 vim.keymap.set(
   'n',
-  '<Right>',
+  '<C-W>>',
   '"<Cmd>vertical resize +" . 3*v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Increase window width' }
 )
 vim.keymap.set(
   'n',
-  '<Down>',
+  '<C-W>-',
   '"<Cmd>resize -" . v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Decrease window height' }
 )
 vim.keymap.set(
   'n',
-  '<Up>',
+  '<C-W>+',
   '"<Cmd>resize +" . v:count1 . "<CR>"',
   { expr = true, replace_keycodes = false, desc = 'Increase window height' }
 )
@@ -102,3 +102,6 @@ vim.keymap.set('v', '<Leader>xx', ':lua<CR>', { desc = 'Evaluate selection' })
 -- NOTE: This may not work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- Diagnostic keymaps
+vim.keymap.set('n', '<leader>xl', vim.diagnostic.setloclist, { desc = 'Open diagnostics in location-list' })
