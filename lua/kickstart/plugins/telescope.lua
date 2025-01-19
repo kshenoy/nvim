@@ -130,10 +130,10 @@ return {
       -- Shortcut for searching your Neovim configuration files
       vim.keymap.set('n', '<Leader>f,', function() -- ',' because MacOS uses , for settings/preferences
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
-      end, { desc = 'Search neovim config' })
+      end, { desc = 'Find files in neovim config' })
       vim.keymap.set('n', '<Leader>fg,', function()
         builtin.find_files { cwd = vim.fs.joinpath(vim.fn.stdpath 'data', 'lazy') }
-      end, { desc = 'Search all plugins' })
+      end, { desc = 'Find files in all neovim plugins' })
 
       -- [[ LEADER ]] --------------------------------------------------------------------------------------------------
       vim.keymap.set('n', "<Leader>'", builtin.resume, { desc = 'Resume picker' })
@@ -146,7 +146,7 @@ return {
       -- [[ FILE ]] ----------------------------------------------------------------------------------------------------
       vim.keymap.set('n', '<Leader>fd', function()
         builtin.find_files { cwd = vim.fn.expand '%:p:h' }
-      end, { desc = 'Find files in current dir' })
+      end, { desc = "Find files in current file's dir" })
       vim.keymap.set('n', '<Leader>ff', builtin.find_files, { desc = 'Find file' })
       vim.keymap.set('n', '<Leader>fr', builtin.oldfiles, { desc = 'Find recent files' })
 
@@ -178,11 +178,11 @@ return {
           prompt_title = 'Search all buffers',
         }
       end, { desc = 'Search all buffers' })
-      vim.keymap.set('n', '<Leader>s/', builtin.live_grep, { desc = 'Search all files' })
+      vim.keymap.set('n', '<Leader>sd', builtin.live_grep, { desc = "Search file's directory" })
       vim.keymap.set('n', '<Leader>st', builtin.current_buffer_tags, { desc = "Search buffer's tags" })
       vim.keymap.set('n', '<Leader>sT', builtin.tags, { desc = 'Search all tags' })
       vim.keymap.set('n', '<Leader>sv', '<Leader>v/', { desc = 'Search Repo', remap = true, silent = true })
-      vim.keymap.set('n', '<Leader>s.', builtin.grep_string, { desc = 'Search word at point(.)' })
+      vim.keymap.set('n', '<Leader>sw', builtin.grep_string, { desc = 'Search word under cursor' })
 
       -- [[ VCS ]] -----------------------------------------------------------------------------------------------------
       -- FIXME: Use 'on_attach' like gitsigns to allow it to be repo-specific
