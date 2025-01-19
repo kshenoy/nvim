@@ -45,3 +45,13 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
     vim.cmd 'redraw!'
   end,
 })
+
+vim.api.nvim_create_autocmd('FileChangedRO', {
+  desc = 'Auto-checkout files under Perforce upon being edited',
+  group = augroup,
+  callback = function()
+    if require('custom.utils.vcs').is_p4_repo() then
+      vim.cmd '!p4 edit %'
+    end
+  end,
+})
