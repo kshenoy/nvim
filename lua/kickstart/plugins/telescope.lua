@@ -178,7 +178,9 @@ return {
           prompt_title = 'Search all buffers',
         }
       end, { desc = 'Search all buffers' })
-      vim.keymap.set('n', '<Leader>sd', builtin.live_grep, { desc = "Search file's directory" })
+      vim.keymap.set('n', '<Leader>sd', function()
+        builtin.live_grep { cwd = vim.uv.cwd() }
+      end, { desc = 'Search files in cwd' })
       vim.keymap.set('n', '<Leader>st', builtin.current_buffer_tags, { desc = "Search buffer's tags" })
       vim.keymap.set('n', '<Leader>sT', builtin.tags, { desc = 'Search all tags' })
       vim.keymap.set('n', '<Leader>sv', '<Leader>v/', { desc = 'Search Repo', remap = true, silent = true })
